@@ -1,6 +1,5 @@
 $('#svgContainer').on('load',Init).on('mousedown',Grab).on('mousemove',Drag).on('mouseup',Drop)
 
-
 var SVGDocument = null;
 var SVGRoot = null;
 
@@ -200,13 +199,13 @@ function newPath(originNode,endNode) {
 		x: parseFloat(x) + parseFloat(translation[0]) + width/1,
 		y: parseFloat(y) + parseFloat(translation[1]) + height/2,
 	}
-	originPoint.cx = originPoint.x - 0 + 20
+	originPoint.cx = originPoint.x + 20
 	originPoint.cy = originPoint.y
 
 	translation = endNode.getAttribute('transform')
 	translation = translation ? translation.match(/-?\d+/g) : [0,0]
 
-	rect = originNode.querySelector('rect')
+	rect = endNode.querySelector('rect')
 
 	x = rect.getAttribute('x')
 	y = rect.getAttribute('y')
@@ -214,7 +213,7 @@ function newPath(originNode,endNode) {
 	height = rect.getAttribute('height')
 
 	endPoint = {
-		x: parseFloat(x) + parseFloat(translation[0]) + width/1,
+		x: parseFloat(x) + parseFloat(translation[0]),
 		y: parseFloat(y) + parseFloat(translation[1]) + height/2,
 	}
 	endPoint.cx = originPoint.x - 20
@@ -229,7 +228,7 @@ function newPath(originNode,endNode) {
 	path.setAttributeNS(null,'d','M ' + originPoint.x + ' ' + originPoint.y + ' C ' + originPoint.cx + ' ' + originPoint.cy + ' ' + endPoint.cx + ' ' + endPoint.cy + ' ' + endPoint.x + ' ' + endPoint.y )
 
 	originNode.setAttributeNS(null,'to-path',originNode.getAttribute('to-path') + ' ' + fromId + 't6')
-	endNode.setAttributeNS(null,'from-path',(endNode.getAttribute('from-path') || '') + ' ' + fromId + 't6')
+	endNode.setAttributeNS(null,'from-path',$.trim((endNode.getAttribute('from-path') || '') + ' ' + fromId + 't6'))
 
 	SVGRoot.appendChild(path)
 }
