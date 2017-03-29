@@ -2,54 +2,87 @@
 <html>
 <head>
 	<title>SVG Flow Chart</title>
+	<style type="text/css">
+		.node rect {
+			fill:transparent;
+			stroke: #ddd;
+			stroke-width: 1
+		}
+		.node text {
+			fill: #333;
+			text-anchor: middle;
+		}
+		path {
+			stroke: #ddd;
+			stroke-width: 1;
+			fill:transparent;
+		}
+		.component rect{
+			fill:transparent;
+			stroke: #1C90F3;
+			stroke-width: 1
+		}
+		.component text{
+			fill: #333;
+			font-size: 30;
+			text-anchor: middle;
+		}
+	</style>
 </head>
 <body>
 
-<svg width="800" height="800">
+<svg width="1000" height="1000" id="svgContainer">
+	<rect id='BackDrop' x='-10%' y='-10%' width='110%' height='110%' fill='none' pointer-events='all' />
 
-	<g id="starter" draggable=true>
-		<rect x="10" y="10" width="100"` height="50" fill="transparent" stroke="#ddd" stroke-width="1"/>
-		<text x="60" y="35" fill="#333" text-anchor="middle">开始</text>				
+	<g id="1" class="node" to-path="1t2 1t3">
+		<rect x="10" y="10" width="100"` height="50"/>
+		<text x="60" y="35">开始</text>				
 	</g>
 
-	<path d="M60 60 V 105 H 160" stroke="#ddd" stroke-width="1" fill="transparent"/>
-	<line x1="110" x2="160" y1="35" y2="35" fill="#333" stroke="#ddd" stroke-width="1"/>
+	<path origin-x="60" origin-y="60" end-x="160" end-y="105" id="1t3" d="M60 60 C 60 80 140 105 160 105"/>
+	<path origin-x="110" origin-y="35" id="1t2" end-x="160" end-y="35" d="M110 35 C 130 35 140 35 160 35"/>
 
-	<g id="">
-		<rect x="160" y="10" width="100"` height="50" fill="transparent" stroke="#ddd" stroke-width="1"/>
-		<text x="210" y="35" fill="#333" text-anchor="middle">A</text>				
+	<g id="2" class="node" from-path="1t2" to-path="2t3">
+		<rect x="160" y="10" width="100"` height="50"/>
+		<text x="210" y="35">A</text>				
 	</g>
 
-	<line x1="210" x2="210" y1="60" y2="80" fill="#333" stroke="#ddd" stroke-width="1"/>
+	<path id="2t3" origin-x="210" origin-y="60"  end-x="210" end-y="80" d="M210 60 C 210 80 210 60 210 80"/>
 
-	<g id="">
-		<rect x="160" y="80" width="100"` height="50" fill="transparent" stroke="#ddd" stroke-width="1"/>
-		<text x="210" y="105" fill="#333" text-anchor="middle">B</text>				
+	<g id="3" class="node" from-path="1t3 2t3" to-path="3t4">
+		<rect x="160" y="80" width="100"` height="50"/>
+		<text x="210" y="105">B</text>				
 	</g>
 
-	<line x1="210" x2="210" y1="130" y2="150" fill="#333" stroke="#ddd" stroke-width="1"/>
+	<path id="3t4" origin-x="210" origin-y="130" id="1t2" end-x="210" end-y="150" d="M210 130 C 210 150 210 130 210 150"/>
+	
 
-	<g id="">
-		<rect x="160" y="150" width="100"` height="50" fill="transparent" stroke="#ddd" stroke-width="1"/>
-		<text x="210" y="175" fill="#333" text-anchor="middle">C</text>				
+	<g id="4" class="node" from-path="3t4" to-path="4t5">
+		<rect x="160" y="150" width="100"` height="50"/>
+		<text x="210" y="175">C</text>				
 	</g>
 
-	<line x1="210" x2="210" y1="200" y2="220" fill="#333" stroke="#ddd" stroke-width="1"/>
+	<path id="4t5" origin-x="210" origin-y="200" end-x="210" end-y="220" d="M210 200 C 210 220 210 200 210 220"/>
 
-	<g id="">
-		<rect x="160" y="220" width="100"` height="50" fill="transparent" stroke="#ddd" stroke-width="1"/>
-		<text x="210" y="245" fill="#333" text-anchor="middle">结束</text>				
+	<g id="5" class="node" from-path="4t5">
+		<rect x="160" y="220" width="100"` height="50"/>
+		<text x="210" y="245">结束</text>				
+	</g>
+
+	<g id="5" class="components">
+		<g class="component">
+			<rect x="800" y="10" width="50" height="50" fill="" stroke="" stroke-width=""/>
+			<text x="825" y="35">1</text>					
+		</g>
+		<g class="component">
+			<rect x="800" y="10" width="50" height="50" fill="" stroke="" stroke-width=""/>
+			<text x="825" y="35">1</text>					
+		</g>			
 	</g>
 </svg>
 
 <script src="./jquery-3.1.1.min.js"></script>
-<script type="text/javascript">
-	var node = $('#starter')
-
-	var originalState ={
-
-	}
-</script>
+<script src="./index.js"></script>
 
 </body>
 </html>
